@@ -1,0 +1,5 @@
+elevenlabslib==0.4.1
+openai==0.27.2
+SpeechRecognition==3.10.0
+torch==2.0.0
+whisper==1.1.10
