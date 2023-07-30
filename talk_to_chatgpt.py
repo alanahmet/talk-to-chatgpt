@@ -7,7 +7,6 @@ import speech_recognition as sr
 import whisper
 import torch
 import sys
-
 from datetime import datetime, timedelta
 from queue import Queue
 from tempfile import NamedTemporaryFile
@@ -17,6 +16,8 @@ from eleven import vocalize_text
 
 
 def main():
+    """Main function to handle command-line voice interactions with OpenAI API."""
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="small", help="Model to use",
                         choices=["tiny", "base", "small", "medium", "large"])
@@ -99,6 +100,12 @@ def main():
 
     
     def listen():
+        """Listen for user's speech input and transcribe it to text.
+
+        Returns:
+            list: A list of transcribed phrases from user's speech input.
+        """
+        
         # The last time a recording was retreived from the queue.
         phrase_time = None
         # Current raw audio bytes.
@@ -159,6 +166,15 @@ def main():
                 #exit
                 sys.exit()
     def chatgpt_response_to_voice(text):
+        """Get OpenAI GPT-3.5 API response and vocalize it as speech.
+
+        Args:
+            text (str): Input text to send to the OpenAI API.
+
+        Returns:
+            None
+        """
+        
         response = get_response(str(text))
         print(response, "\n")
         vocalize_text(response, args.speaker_name)
